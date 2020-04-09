@@ -92,6 +92,13 @@ struct AuthenticationAthenzWrapper : public AuthenticationWrapper {
     }
 };
 
+struct AuthenticationTuyaWrapper : public AuthenticationWrapper {
+    AuthenticationTuyaWrapper(const std::string& authParamsString) :
+            AuthenticationWrapper() {
+        this->auth = AuthTuya::create(authParamsString);
+    }
+};
+
 void export_authentication() {
     using namespace boost::python;
 
@@ -107,6 +114,9 @@ void export_authentication() {
             ;
 
     class_<AuthenticationAthenzWrapper, bases<AuthenticationWrapper> >("AuthenticationAthenz",
+                                                                       init<const std::string&>())
+            ;
+    class_<AuthenticationTuyaWrapper, bases<AuthenticationWrapper> >("AuthenticationTuya",
                                                                        init<const std::string&>())
             ;
 }

@@ -166,6 +166,22 @@ class PULSAR_PUBLIC AuthAthenz : public Authentication {
     AuthenticationDataPtr authDataAthenz_;
 };
 
+/**
+ * Tuya implementation of Pulsar client authentication
+ */
+    class PULSAR_PUBLIC AuthTuya : public Authentication {
+    public:
+        AuthTuya(AuthenticationDataPtr&);
+        ~AuthTuya();
+        static AuthenticationPtr create(const std::string&  params);
+        static AuthenticationPtr create(ParamMap& params);
+        const std::string getAuthMethodName() const;
+        Result getAuthData(AuthenticationDataPtr& authDataTuya_) const;
+
+    private:
+        AuthenticationDataPtr authDataTuya_;
+    };
+
 }  // namespace pulsar
 
 #endif /* PULSAR_AUTHENTICATION_H_ */

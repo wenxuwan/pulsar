@@ -318,6 +318,20 @@ class AuthenticationAthenz(Authentication):
         _check_type(str, auth_params_string, 'auth_params_string')
         self.auth = _pulsar.AuthenticationAthenz(auth_params_string)
 
+class AuthenticationTuya(Authentication):
+    """
+    Athenz Authentication implementation
+    """
+    def __init__(self, auth_params_string):
+        """
+        Create the Athenz authentication provider instance.
+
+        **Args**
+
+        * `auth_params_string`: JSON encoded configuration for Athenz client
+        """
+        _check_type(str, auth_params_string, 'auth_params_string')
+        self.auth = _pulsar.AuthenticationTuya(auth_params_string)
 
 class Client:
     """
@@ -521,7 +535,7 @@ class Client:
         conf.schema(schema.schema_info())
 
         p = Producer()
-        p._producer = self._client.create_producer(topic, conf)
+        #p._producer = self._client.create_producer(topic, conf)
         p._schema = schema
         return p
 

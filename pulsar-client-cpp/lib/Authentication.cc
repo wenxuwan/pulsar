@@ -22,6 +22,7 @@
 #include "auth/AuthTls.h"
 #include "auth/AuthAthenz.h"
 #include "auth/AuthToken.h"
+#include "auth/AuthTuya.h"
 #include <lib/LogUtils.h>
 
 #include <string>
@@ -125,7 +126,10 @@ AuthenticationPtr tryCreateBuiltinAuth(const std::string& pluginName, ParamMap& 
     } else if (boost::iequals(pluginName, ATHENZ_PLUGIN_NAME) ||
                boost::iequals(pluginName, ATHENZ_JAVA_PLUGIN_NAME)) {
         return AuthAthenz::create(paramMap);
-    } else {
+    } else if (boost::iequals(pluginName, TUYA_PLUGIN_NAME) ||
+               boost::iequals(pluginName, TUYA_JAVA_PLUGIN_NAME)){
+        return AuthTuya::create(paramMap);
+    }else {
         return AuthenticationPtr();
     }
 }
@@ -139,6 +143,9 @@ AuthenticationPtr tryCreateBuiltinAuth(const std::string& pluginName, const std:
     } else if (boost::iequals(pluginName, ATHENZ_PLUGIN_NAME) ||
                boost::iequals(pluginName, ATHENZ_JAVA_PLUGIN_NAME)) {
         return AuthAthenz::create(authParamsString);
+    }else if (boost::iequals(pluginName, TUYA_PLUGIN_NAME) ||
+              boost::iequals(pluginName, TUYA_JAVA_PLUGIN_NAME)){
+        return AuthTuya::create(authParamsString);
     } else {
         return AuthenticationPtr();
     }
